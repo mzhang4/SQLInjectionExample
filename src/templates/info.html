@@ -1,0 +1,16 @@
+$def with (userInfo)
+
+<table>
+		<tr>
+			<th> User </th>
+			<th> SSN </th>
+			<th> Card </th> 
+		</tr>
+$for ui in userInfo:
+    <tr>
+        <td>$ui.NAME</td>
+        <td>$ui.SSN </td>
+        <td>$ui.CARD </td>
+    </tr> 
+</table>
+ <a href="/">Homepage</a>
