@@ -12,6 +12,7 @@ class userInfo:
     loginForm = form.Form(
         form.Textbox("username", description="Username"),
         form.Password("password", description="Password"),
+        form.Textbox("sqlInject", description="SQLInjection or not(1. yes, 0. no)"),
         form.Button("submit", type="submit", description="Submit")
         )
 
@@ -22,9 +23,13 @@ class userInfo:
     def POST(self):
         f = self.loginForm()
         f.validates()
-      
-        userInfo = model.getUserInfo(f["username"].value, f["password"].value)
-        
+
+        userInfo = {}
+        if int(f["sqlInject"].value) == 1:
+            userInfo = model.getUserInfo(f["username"].value, f["password"].value)
+        elif int(f["sqlInject"].value) == 0:
+            userInfo = model.getUserInfoSec(f["username"].value, f["password"].value)
+
         if not userInfo:
             return render.error()
         else:
